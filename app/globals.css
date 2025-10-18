@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background: linear-gradient(135deg, rgb(124 58 237) 0%, rgb(236 72 153) 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px -5px rgba(124, 58, 237, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -5px rgba(124, 58, 237, 0.5);
+  }
+  
+  .btn-secondary {
+    background: white;
+    color: rgb(124 58 237);
+    padding: 0.75rem 2rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    border: 2px solid rgb(124 58 237);
+    transition: all 0.3s;
+  }
+  
+  .btn-secondary:hover {
+    background: rgb(124 58 237);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 30px 80px -10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, rgb(124 58 237) 0%, rgb(236 72 153) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
