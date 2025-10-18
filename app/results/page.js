@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
-export default function ResultsPage() {
+function ResultsContent() {
   const searchParams = useSearchParams();
   const resultId = searchParams.get('id');
   const [result, setResult] = useState(null);
@@ -156,7 +156,6 @@ export default function ResultsPage() {
                 
                 if (!cleanText) return null;
 
-                // Special formatting for key moments
                 const isEmphatic = cleanText.length < 80 && (
                   cleanText.includes('truth is') || 
                   cleanText.includes('reality is') ||
@@ -202,7 +201,7 @@ export default function ResultsPage() {
               </div>
             </div>
 
-            {/* Handwritten-style P.S. */}
+            {/* P.S. */}
             <div className="mt-8 pt-4 border-t border-dashed border-[#d4a574]/40">
               <p className="text-sm text-[#8b7355] italic font-serif">
                 P.S. — Save this. You'll want to read it again when you forget.
@@ -266,5 +265,20 @@ export default function ResultsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#fef6e4]">
+        <div className="text-center">
+          <div className="text-6xl mb-4 animate-pulse">✉️</div>
+          <p className="text-[#8b7355]">Loading your letter...</p>
+        </div>
+      </div>
+    }>
+      <ResultsContent />
+    </Suspense>
   );
 }
